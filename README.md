@@ -1,12 +1,22 @@
-# Matt McHatton testing
-# Serverless Testing Examples
+# Matt McHatton Mentorship
+For the mentorship we followed this tutorial on Medium: [Serverless Testing Strategies](https://medium.com/@didil/serverless-testing-strategies-393bffb0eef8).
 
 [ ![Codeship Status for didil/serverless-testing-examples](https://app.codeship.com/projects/19935a10-6b14-0136-e048-5a63a4ca7788/status?branch=master)](https://app.codeship.com/projects/298157)
 
 This repository illustrates some strategies to test apps built using [Serverless framework](https://github.com/serverless/serverless).
 
-I've published an article about this on Medium: [Serverless Testing Strategies](https://medium.com/@didil/serverless-testing-strategies-393bffb0eef8)
+We reviewed the code to get a better understanding of how serverless functions work but also how to create reasonable tests for simple functions.
 
+We decided to customize the function from the tutorial to add additional functionality to the serverless function and the associated tests.
+
+Added Functionality :
+- Allow for 3 inputs to asyncConcat service
+    - Criteria: Can accept 3 inputs but does not need 3
+        - a: string
+        - b: string
+        - c: boolean
+- SpOnGeBoBiFy 
+    - Criteria: Every other letter is set to uppercase if c is true
 
 ## Setup
 
@@ -53,13 +63,3 @@ vary: origin,accept-encoding
     "result": "foo bar"
 }
 
-
-
-````
-
-
-## Contributions
-
-If you would like to contribute to this repo and share some interesting test scenarios/usages with the serverless community, please feel free to open a PR !
-
-You can reach me on Twitter: [@le_didil](https://twitter.com/le_didil)
