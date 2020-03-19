@@ -37,16 +37,33 @@ describe('asyncConcat: ', function asyncConcatTest() {
     });
   });
 
-  //Add a test for checking that inputs are less than 10 characters
-  /*
-  {
-    Less than 10 characters
-    ...
-    Equal to 10 characters
-    ...
-    Greater than 10 characters
-  }
-  */
+  //Add tests for checking 10 character constraints
+  it('concats successfully if less than 10 characters', async () => {
+    let a = "Hello";
+    let b = "World";
+
+    let result = await asyncConcatService.concat(a, b);
+
+    expect(result).to.eq("Hello World");
+  });
+
+  it('concats successfully if equal to 10 characters', async () => {
+    let a = "thisisten!";
+    let b = "alsoten!!!";
+
+    let result = await asyncConcatService.concat(a, b);
+
+    expect(result).to.eq("thisisten! alsoten!!!");
+  });
+
+  it('fails if characters greater than 10 characters', async () => {
+    let a = "morethantenchars";
+    let b = "hello";
+
+    let result = await asyncConcatService.concat(a, b);
+
+    expect(result).to.eq("Both inputs must be 10 characters or less");
+  });
 
   //Add a test for c must be boolean
   /*
