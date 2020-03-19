@@ -4,7 +4,7 @@ const getSlsOfflinePort = require('../support/getSlsOfflinePort');
 
 describe('getAsyncConcat', function getAsyncConcatTest() {
 
-  it('ok', function it(done) {
+  it('function concatenates words correctly', function it(done) {
     request(`http://localhost:${getSlsOfflinePort()}`)
       .get(`/asyncConcat?a=it&b=works`)
       .expect(200)
