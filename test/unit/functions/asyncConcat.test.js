@@ -5,10 +5,10 @@ const asyncConcatService = require("../../../lib/asyncConcatService");
 
 let asyncConcat = require("../../../functions/asyncConcat");
 
-describe('asyncConcat', function asyncConcatTest() {
+describe('asyncConcat: ', function asyncConcatTest() {
   let concatStub;
 
-  context('input ok', function () {
+  context('When input is ok', function () {
     let queryStringParameters = { a: "a string", b: "b string" };
     let result = "result stub";
 
@@ -22,7 +22,7 @@ describe('asyncConcat', function asyncConcatTest() {
       });
     });
 
-    it('success', async function () {
+    it('returns a 200 response', async function () {
       let event = { queryStringParameters };
       let context = {};
 
@@ -37,10 +37,10 @@ describe('asyncConcat', function asyncConcatTest() {
     });
   });
 
-  context('input missing', function () {
+  context('When input is missing', function () {
     let queryStringParameters = { a: "a string" };
 
-    it('failure', async function () {
+    it('sends correct failure message', async function () {
       let event = { queryStringParameters };
       let context = {};
 
