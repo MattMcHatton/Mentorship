@@ -2,8 +2,8 @@ const expect = require('chai').expect;
 
 const asyncConcatService = require('../../../lib/asyncConcatService');
 
-describe('asyncConcatService', function () {
-  it('concats', async () => {
+describe('asyncConcatService: ', function () {
+  it('concatenates inputs', async () => {
     let a = "Serverless";
     let b = "is awesome";
 
