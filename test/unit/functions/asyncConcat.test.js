@@ -37,6 +37,26 @@ describe('asyncConcat: ', function asyncConcatTest() {
     });
   });
 
+  //Add a test for checking that inputs are less than 10 characters
+  /*
+  {
+    Less than 10 characters
+    ...
+    Equal to 10 characters
+    ...
+    Greater than 10 characters
+  }
+  */
+
+  //Add a test for c must be boolean
+  /*
+  {
+    c is boolean
+    ...
+    c is not boolean
+  }
+  */
+
   context('When input is missing', function () {
     let queryStringParameters = { a: "a string" };
 
