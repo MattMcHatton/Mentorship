@@ -8,13 +8,13 @@ let asyncConcat = require("../../../functions/asyncConcat");
 describe('asyncConcat: ', function asyncConcatTest() {
   let concatStub;
 
-  context('When input is ok', function () {
+  context('When input is ok', () => {
     let queryStringParameters = { a: "a string", b: "b string" };
     let result = "result stub";
 
     before(function beforeTest() {
       concatStub = sinon.stub(asyncConcatService, "concat");
-      concatStub.callsFake(function (a, b) {
+      concatStub.callsFake((a, b) => {
         expect(a).to.eq(queryStringParameters.a);
         expect(b).to.eq(queryStringParameters.b);
 
@@ -22,7 +22,18 @@ describe('asyncConcat: ', function asyncConcatTest() {
       });
     });
 
-    it('returns a 200 response', async function () {
+    it('returns a 200 response', async () => {
+      let event = { queryStringParameters };
+      let context = {};
+
+      let response = await asyncConcat.handler(event, context);
+
+      expect(response.statusCode).to.eq(200);
+      expect(response.body).to.eq(`{"result":"${result}"}`);
+    });
+
+    //Add tests for checking 10 character constraints
+    it('concats successfully if less than 10 characters', async () => {
       let event = { queryStringParameters };
       let context = {};
 
@@ -37,32 +48,33 @@ describe('asyncConcat: ', function asyncConcatTest() {
     });
   });
 
-  //Add tests for checking 10 character constraints
-  it('concats successfully if less than 10 characters', async () => {
-    let a = "Hello";
-    let b = "World";
+  context('When input is edgecase', () => {
+    let queryStringParameters = { a: "equaltoten", b: "b string" };
+    let result = "result stub";
 
-    let result = await asyncConcatService.concat(a, b);
+    before(function beforeTest() {
+      concatStub = sinon.stub(asyncConcatService, "concat");
+      concatStub.callsFake((a, b) => {
+        expect(a).to.eq(queryStringParameters.a);
+        expect(b).to.eq(queryStringParameters.b);
 
-    expect(result).to.eq("Hello World");
-  });
+        return Promise.resolve(result);
+      });
+    });
 
-  it('concats successfully if equal to 10 characters', async () => {
-    let a = "thisisten!";
-    let b = "alsoten!!!";
+    it('concats successfully if equal to 10 characters', async () => {
+      let event = { queryStringParameters };
+      let context = {};
 
-    let result = await asyncConcatService.concat(a, b);
+      let response = await asyncConcat.handler(event, context);
 
-    expect(result).to.eq("thisisten! alsoten!!!");
-  });
+      expect(response.statusCode).to.eq(200);
+      expect(response.body).to.eq(`{"result":"${result}"}`);
+    });
 
-  it('fails if characters greater than 10 characters', async () => {
-    let a = "morethantenchars";
-    let b = "hello";
-
-    let result = await asyncConcatService.concat(a, b);
-
-    expect(result).to.eq("Both inputs must be 10 characters or less");
+    after(function afterTest() {
+      concatStub.restore();
+    });
   });
 
   //Add a test for c must be boolean
@@ -74,10 +86,24 @@ describe('asyncConcat: ', function asyncConcatTest() {
   }
   */
 
-  context('When input is missing', function () {
+ context('When input is incorrect', () => {
+  let queryStringParameters = { a: "morethantenchars" , b: "b string"};
+
+  it('fails if greater than 10 characters', async () => {
+    let event = { queryStringParameters };
+    let context = {};
+
+    let response = await asyncConcat.handler(event, context);
+
+    expect(response.statusCode).to.eq(400);
+    expect(response.body).to.eq('{"message":"Both inputs must be 10 characters or less"}');
+    });
+  });
+
+  context('When input is missing', () => {
     let queryStringParameters = { a: "a string" };
 
-    it('sends correct failure message', async function () {
+    it('sends correct failure message', async () => {
       let event = { queryStringParameters };
       let context = {};
 

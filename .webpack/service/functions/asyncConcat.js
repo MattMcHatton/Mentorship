@@ -107,7 +107,7 @@ module.exports.handler = async (event, context) => {
   }
 
   //Inputs must be less than 10 characters
-  if (length(a) > 10 || length(b) > 10) {
+  if (a.length > 10 || b.length > 10) {
     return jsonResponse.error({
       message: "Both inputs must be 10 characters or less"
     });
