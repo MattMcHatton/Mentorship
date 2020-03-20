@@ -1,8 +1,6 @@
 # Matt McHatton Mentorship
 For the mentorship we followed this tutorial on Medium: [Serverless Testing Strategies](https://medium.com/@didil/serverless-testing-strategies-393bffb0eef8).
 
-[ ![Codeship Status for didil/serverless-testing-examples](https://app.codeship.com/projects/19935a10-6b14-0136-e048-5a63a4ca7788/status?branch=master)](https://app.codeship.com/projects/298157)
-
 This repository illustrates some strategies to test apps built using [Serverless framework](https://github.com/serverless/serverless).
 
 We reviewed the code to get a better understanding of how serverless functions work but also how to create reasonable tests for simple functions.
