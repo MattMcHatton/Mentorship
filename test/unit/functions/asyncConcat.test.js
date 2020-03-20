@@ -9,7 +9,7 @@ describe('asyncConcat: ', function asyncConcatTest() {
   let concatStub;
 
   context('When input is ok', () => {
-    let queryStringParameters = { a: "a string", b: "b string" };
+    let queryStringParameters = { a: "a string", b: "b string" , c: "false" };
     let result = "result stub";
 
     before(function beforeTest() {
@@ -77,7 +77,7 @@ describe('asyncConcat: ', function asyncConcatTest() {
     });
   });
 
-  //Add a test for c must be boolean
+  //Add a test for c must be true or false
   /*
   {
     c is boolean
@@ -87,9 +87,21 @@ describe('asyncConcat: ', function asyncConcatTest() {
   */
 
  context('When input is incorrect', () => {
-  let queryStringParameters = { a: "morethantenchars" , b: "b string"};
+ 
+  it('fails if c is not true or false', async () => {
+    let queryStringParameters = { a: "a string" , b: "b string" , c: "c string"};
+    let event = { queryStringParameters };
+    let context = {};
 
+    let response = await asyncConcat.handler(event, context);
+
+    expect(response.statusCode).to.eq(400);
+    expect(response.body).to.eq('{"message":"c must be true or false"}');
+    });
+  });
+  
   it('fails if greater than 10 characters', async () => {
+    let queryStringParameters = { a: "morethantenchars" , b: "b string" , c: "c string"};
     let event = { queryStringParameters };
     let context = {};
 
@@ -98,7 +110,6 @@ describe('asyncConcat: ', function asyncConcatTest() {
     expect(response.statusCode).to.eq(400);
     expect(response.body).to.eq('{"message":"Both inputs must be 10 characters or less"}');
     });
-  });
 
   context('When input is missing', () => {
     let queryStringParameters = { a: "a string" };
@@ -112,10 +123,5 @@ describe('asyncConcat: ', function asyncConcatTest() {
       expect(response.statusCode).to.eq(400);
       expect(response.body).to.eq('{"message":"Please specify 2 strings a and b to concatenate"}');
     });
-
-    after(function afterTest() {
-      concatStub.restore();
-    });
   });
-
 });

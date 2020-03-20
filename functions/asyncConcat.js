@@ -36,5 +36,6 @@ module.exports.handler = async (event, context) => {
   }
 
   return jsonResponse.ok({ result });
+  
 };
 
