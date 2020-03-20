@@ -1,5 +1,6 @@
 const jsonResponse = require("../lib/jsonResponse");
 const asyncConcatService = require("../lib/asyncConcatService");
+const Spongebobify = require("../lib/Spongebobify");
 
 module.exports.handler = async (event, context) => {
   let { a, b} = event.queryStringParameters;
@@ -17,22 +18,16 @@ module.exports.handler = async (event, context) => {
       message: "Both inputs must be 10 characters or less"
     });
   }
+  let result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
 
-  /* 
-    Spongebobify 
-    Function to make spongebob case 
-    Pass in both a and b to get spongebobA and spongebobB
-    and then concat in function below
-    
-    () => {
-
-    }
+  // Spongebobify 
+  /*
+  if (c) {
+    let result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
+  } else {
+    let result = await asyncConcatService.concat(a, b);
+  }
   */
-
-  let result = await asyncConcatService.concat(a, b);
-  //let result = await asyncConcatService.concat(spongebobA, spongebobB);
-
-  //change 
 
   return jsonResponse.ok({ result });
 };
