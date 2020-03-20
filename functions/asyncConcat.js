@@ -3,7 +3,7 @@ const asyncConcatService = require("../lib/asyncConcatService");
 const Spongebobify = require("../lib/Spongebobify");
 
 module.exports.handler = async (event, context) => {
-  let { a, b} = event.queryStringParameters;
+  let { a, b, c} = event.queryStringParameters;
 
   //Must have 2 inputs
   if (!a || !b) {
@@ -18,16 +18,22 @@ module.exports.handler = async (event, context) => {
       message: "Both inputs must be 10 characters or less"
     });
   }
-  let result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
+
+  //c must be true or false
+  if (c){
+    if ( c !== 'true' && c !== 'false' ) {
+      return jsonResponse.error({
+        message: "c must be true or false"
+      });
+    }
+  }
 
   // Spongebobify 
-  /*
-  if (c) {
-    let result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
+  if (c === 'true') {
+    result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
   } else {
-    let result = await asyncConcatService.concat(a, b);
+    result = await asyncConcatService.concat(a, b);
   }
-  */
 
   return jsonResponse.ok({ result });
 };

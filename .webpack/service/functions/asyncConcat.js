@@ -98,7 +98,7 @@ const asyncConcatService = __webpack_require__(/*! ../lib/asyncConcatService */ 
 const Spongebobify = __webpack_require__(/*! ../lib/Spongebobify */ "./lib/Spongebobify.js");
 
 module.exports.handler = async (event, context) => {
-  let { a, b} = event.queryStringParameters;
+  let { a, b, c} = event.queryStringParameters;
 
   //Must have 2 inputs
   if (!a || !b) {
@@ -113,16 +113,22 @@ module.exports.handler = async (event, context) => {
       message: "Both inputs must be 10 characters or less"
     });
   }
-  let result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
+
+  //c must be true or false
+  if (c){
+    if ( c !== 'true' && c !== 'false' ) {
+      return jsonResponse.error({
+        message: "c must be true or false"
+      });
+    }
+  }
 
   // Spongebobify 
-  /*
-  if (c) {
-    let result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
+  if (c === 'true') {
+    result = await asyncConcatService.concat(Spongebobify.spongebobify(a), Spongebobify.spongebobify(b));
   } else {
-    let result = await asyncConcatService.concat(a, b);
+    result = await asyncConcatService.concat(a, b);
   }
-  */
 
   return jsonResponse.ok({ result });
 };
@@ -173,7 +179,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-function concat(a, b) {
+function concat(a, b, c) {
   return new Promise((resolve, reject) => {
     setImmediate(() => resolve(`${a} ${b}`));
   });
