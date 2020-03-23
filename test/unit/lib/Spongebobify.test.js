@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const Spongebobify = require('../../../lib/Spongebobify');
 
-describe('Spongebobify: ', function () {
+describe('Unit/Spongebobify: ', function () {
 
     it('spongebobifies inputs', async () => {
       let a = "Serverless";

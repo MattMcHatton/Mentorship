@@ -5,7 +5,7 @@ const asyncConcatService = require("../../../lib/asyncConcatService");
 
 let asyncConcat = require("../../../functions/asyncConcat");
 
-describe('asyncConcat: ', function asyncConcatTest() {
+describe('Unit Stubbed/asyncConcat: ', function asyncConcatTest() {
   let concatStub;
 
   context('When input is ok', () => {
